@@ -1,0 +1,95 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Insland: New Project",
+            "detail": "Ask for a name, create projects/<name>, then reconfigure and build with the active preset.",
+            "dependsOn": [
+                "Insland: Create Project",
+                "Insland: Configure",
+                "Insland: Build"
+            ],
+            "dependsOrder": "sequence",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            }
+        },
+        {
+            "label": "Insland: Create Project",
+            "type": "shell",
+            "command": "py",
+            "args": [
+                "scripts/new_project.py",
+                "${input:inslandProjectName}"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Insland: Android APK",
+            "detail": "Build and sign build-android/insland-arm64-v8a.apk (installs NDK r27c on first run).",
+            "type": "shell",
+            "command": "py",
+            "args": [
+                "scripts/build_android.py"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            }
+        },
+        {
+            "label": "Insland: Android APK (emulator)",
+            "detail": "Build and sign an x86_64 APK for the Android emulator.",
+            "type": "shell",
+            "command": "py",
+            "args": [
+                "scripts/build_android.py",
+                "--abi",
+                "x86_64"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            }
+        },
+        {
+            "label": "Insland: Configure",
+            "detail": "Re-run CMake with the active configure preset.",
+            "type": "cmake",
+            "command": "configure",
+            "problemMatcher": []
+        },
+        {
+            "label": "Insland: Build",
+            "detail": "Build every target (including the new project) with the active build preset.",
+            "type": "cmake",
+            "command": "build",
+            "targets": [
+                "all"
+            ],
+            "problemMatcher": []
+        }
+    ],
+    "inputs": [
+        {
+            "id": "inslandProjectName",
+            "type": "promptString",
+            "description": "New project name (letters, digits, '-' and '_')",
+            "default": "my_game"
+        }
+    ]
+}

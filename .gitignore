@@ -1,0 +1,42 @@
+# Build trees ----------------------------------------------------------------
+/build/
+/build-gl/
+/build_gl/
+/build-vscode/
+/build-android/
+/out/
+/dist/
+
+# IDE / OS -------------------------------------------------------------------
+# Shared VS Code settings are tracked so CMake Tools uses the Ninja presets;
+# everything else in .vscode/ stays local.
+/.vscode/*
+!/.vscode/settings.json
+!/.vscode/extensions.json
+!/.vscode/tasks.json
+/.idea/
+CMakeUserPresets.json
+*.swp
+.DS_Store
+Thumbs.db
+
+# Binaries and intermediate files -------------------------------------------
+*.exe
+*.pdb
+*.ilk
+*.obj
+*.lib
+*.exp
+
+# Logs and captured frames ---------------------------------------------------
+*.log
+/*.png
+/validate_frame.png
+
+# Python ---------------------------------------------------------------------
+__pycache__/
+*.pyc
+
+# Android --------------------------------------------------------------------
+android/local.properties
+*.apk

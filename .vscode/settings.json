@@ -1,0 +1,22 @@
+{
+    // Drive CMake through CMakePresets.json.  This keeps the generator (Ninja)
+    // and the binary directories (build/, build-gl/) identical between the
+    // command line and the VS Code status-bar buttons.
+    "cmake.useCMakePresets": "always",
+    // Ninja needs the MSVC environment (cl.exe, INCLUDE, LIB).  CMake Tools
+    // loads it from the detected Visual Studio installation.
+    "cmake.useVsDeveloperEnvironment": "auto",
+    "cmake.preferredGenerators": [
+        "Ninja"
+    ],
+    "cmake.configureOnOpen": true,
+    // Let CMake Tools configure IntelliSense from the active preset instead of
+    // a machine-specific compiler path or a fixed compile_commands.json.
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "C_Cpp.default.cppStandard": "c++17",
+    "C_Cpp.default.cStandard": "c17",
+    "files.associations": {
+        "*.hpp": "cpp",
+        "*.h": "cpp"
+    }
+}

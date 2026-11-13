@@ -1,0 +1,44 @@
+{
+  "format": "insland",
+  "version": 1,
+  "name": "Insland Demo",
+  "sky": true,
+  "world": {
+    "enabled": true,
+    "seed": 1337,
+    "resolution": 128,
+    "size": 96.0,
+    "height_scale": 14.0,
+    "noise_scale": 0.018,
+    "water_level": 2.4,
+    "tree_count": 90,
+    "build_water": true,
+    "build_trees": true
+  },
+  "entities": [
+    {
+      "name": "Cube",
+      "transform": {
+        "position": [-1.4, 0.65, 0.0],
+        "rotation": [1.0, 0.0, 0.0, 0.0],
+        "scale": [0.9, 0.9, 0.9]
+      },
+      "color": [0.85, 0.43, 0.22, 1.0],
+      "visible": true,
+      "animation": -1
+    },
+    {
+      "name": "Model",
+      "model": "model.glb",
+      "transform": {
+        "position": [6.0, 0.0, 0.0],
+        "rotation": [1.0, 0.0, 0.0, 0.0],
+        "scale": [1.0, 1.0, 1.0]
+      },
+      "color": [1.0, 1.0, 1.0, 1.0],
+      "visible": true,
+      "animation": 0,
+      "loop": true
+    }
+  ]
+}
