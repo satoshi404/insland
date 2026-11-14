@@ -16,6 +16,14 @@
 
 #include "imgui.h"
 
+#if defined(__ANDROID__)
+
+#include "platform/android.hpp"
+#include "platform/android_entry.hpp"
+#include "platform/touch.hpp"
+
+#endif
+
 #include <cstdio>
 #include <string>
 #include <utility>
@@ -120,6 +128,34 @@ int main()
         if (input::key_down(input::Key::Right)) sample.orbit_yaw += 60.0f * dt;
         if (input::key_down(input::Key::Up)) sample.orbit_pitch += 45.0f * dt;
         if (input::key_down(input::Key::Down)) sample.orbit_pitch -= 45.0f * dt;
+
+		Log::SetLevel(LogLevel::Debug);
+		
+		
+		#if defined(__ANDROID__)
+		input::TouchState& state = input::touch;
+		input::TouchPoint* p = state.find(0);
+		
+		if (state.count > 0 && !ui_wants_mouse)
+		{
+			const float x = p->x;
+			const float y = p->y;
+			const raycast::Ray ray = raycast::screen_ray(
+				engine.camera(), x, y,
+				static_cast<float>(app.config().width),
+				static_cast<float>(app.config().height),
+				engine.camera().zero_to_one_ndc);
+			sample.last_pick = raycast::intersect_heightmap(
+				ray, 800.0f,
+				[&](float x, float z) { return sample.world.height_at(x, z); });
+			sample.has_pick = sample.last_pick.hit;
+			if (sample.has_pick)
+				std::printf("sample: picked (%.2f %.2f %.2f)\n",
+							sample.last_pick.point.x, sample.last_pick.point.y,
+							sample.last_pick.point.z);
+		}
+
+		#endif
 
         engine.camera().orbit(sample.orbit_yaw, sample.orbit_pitch,
                               sample.orbit_distance, sample.orbit_center);

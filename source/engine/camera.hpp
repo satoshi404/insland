@@ -10,7 +10,7 @@ namespace insland
 class Camera
 {
 public:
-    Vec3 position{0.0f, 1.5f, 4.0f};
+    Vec3 position{3.5f, 1.5f, 0.0f};
     Vec3 target{0.0f, 0.5f, 0.0f};
     Vec3 up{0.0f, 1.0f, 0.0f};
 

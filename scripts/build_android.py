@@ -265,6 +265,7 @@ def ensure_debug_keystore(jdk: Path | None) -> Path:
     keystore = Path.home() / ".android" / "debug.keystore"
     if keystore.is_file():
         return keystore
+
     if not jdk:
         fail("no JDK found to create the debug keystore. Pass --jdk PATH.")
     keytool = jdk / "bin" / ("keytool.exe" if os.name == "nt" else "keytool")

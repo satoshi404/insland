@@ -31,7 +31,18 @@
 
 #include "engine/model_data.hpp"
 
+
 #if defined(__ANDROID__)
+
+#    include <android/asset_manager.h>
+#    include <android/log.h>
+#    include <android/native_window.h>
+#    include <android_native_app_glue.h>
+
+#    include <cstdio>
+#    include <string>
+#    include <sys/stat.h>
+
 #    include "platform/android.hpp"
 #endif
 
@@ -64,6 +75,11 @@ int print_usage()
 
 int run_demo(int argc, char** argv)
 {
+	Log::SetLevel(LogLevel::Info);
+	Log::Critical("Insland", "This is a critical message from Insland.");
+	Log::Write(LogLevel::Debug, "Insland", "This is a debug message from Insland.");
+
+
     std::fflush(stdout);
 
     std::string model_path;
@@ -282,6 +298,8 @@ int run_demo(int argc, char** argv)
     }
 
     // Model -----------------------------------------------------------------
+	std::string model_name = model_path.empty() ? "Running.glb" : model_path;
+
     Model model;
     if (!scene_mode && model_path.empty())
     {
@@ -290,14 +308,14 @@ int run_demo(int argc, char** argv)
         // the build directory and from an installed layout.
         const std::vector<std::string> candidates = {
 #if defined(__ANDROID__)
-            fs::join(config.asset_root, "model.glb"),
+            fs::join(config.asset_root, model_name),
 #endif
-            fs::join(fs::join(fs::current_directory(), "assets"), "model.glb"),
-            fs::join(fs::join(fs::executable_directory(), "assets"), "model.glb"),
-            fs::join(fs::join(fs::executable_directory(), ".."), "workspace/game/assets/model.glb"),
-            "../workspace/game/assets/model.glb",
-            "workspace/game/assets/model.glb",
-            "assets/model.glb",
+            fs::join(fs::join(fs::current_directory(), "assets"), model_name),
+            fs::join(fs::join(fs::executable_directory(), "assets"), model_name),
+            fs::join(fs::join(fs::executable_directory(), ".."), "workspace/game/assets/" + model_name),
+            "../workspace/game/assets/" + model_name,
+            "workspace/game/assets/" + model_name,
+            "assets/" + model_name,
         };
         for (const auto& cand : candidates)
         {
@@ -488,6 +506,9 @@ int run_demo(int argc, char** argv)
             ui_enabled = !ui_enabled;
             std::printf("inspector %s\n", ui_enabled ? "on" : "off");
         }
+
+		// Touch input is translated by the platform layer (platform/window/android.cpp):
+		// the first finger drives input::mouse (orbit) and two fingers pinch into mouse.wheel.
 
         const bool ui_wants_mouse = ui_enabled && ui.initialized() && ui.wants_mouse();
 

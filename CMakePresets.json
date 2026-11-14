@@ -1,73 +1,77 @@
 {
-  "version": 6,
-  "cmakeMinimumRequired": {
-    "major": 3,
-    "minor": 25,
-    "patch": 0
-  },
-  "configurePresets": [
-    {
-      "name": "windows-base",
-      "hidden": true,
-      "generator": "Ninja",
-      "condition": {
-        "type": "equals",
-        "lhs": "${hostSystemName}",
-        "rhs": "Windows"
-      },
-      "architecture": {
-        "value": "x64",
-        "strategy": "external"
-      },
-      "toolset": {
-        "value": "host=x64",
-        "strategy": "external"
-      },
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
-      }
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 25,
+        "patch": 0
     },
-    {
-      "name": "windows-d3d11",
-      "displayName": "Windows - Direct3D 11 (Ninja, Release)",
-      "description": "Default Windows build. VS Code's CMake Tools uses this preset for the configure, build and play buttons.",
-      "inherits": "windows-base",
-      "binaryDir": "${sourceDir}/build"
-    },
-    {
-      "name": "windows-opengl",
-      "displayName": "Windows - OpenGL (Ninja, Release)",
-      "description": "Builds the OpenGL backend on Windows to validate the Linux/Android renderer without leaving Windows.",
-      "inherits": "windows-base",
-      "binaryDir": "${sourceDir}/build-gl",
-      "cacheVariables": {
-        "INSLAND_FORCE_OPENGL": "ON"
-      }
-    }
-  ],
-  "buildPresets": [
-    {
-      "name": "windows-d3d11",
-      "displayName": "InslandGame - Direct3D 11",
-      "configurePreset": "windows-d3d11",
-      "targets": ["InslandGame"]
-    },
-    {
-      "name": "windows-d3d11-all",
-      "displayName": "Everything - Direct3D 11",
-      "configurePreset": "windows-d3d11"
-    },
-    {
-      "name": "windows-opengl",
-      "displayName": "InslandGame - OpenGL",
-      "configurePreset": "windows-opengl",
-      "targets": ["InslandGame"]
-    },
-    {
-      "name": "windows-opengl-all",
-      "displayName": "Everything - OpenGL",
-      "configurePreset": "windows-opengl"
-    }
-  ]
+    "configurePresets": [
+        {
+            "name": "windows-base",
+            "hidden": true,
+            "generator": "Ninja",
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            },
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            },
+            "toolset": {
+                "value": "host=x64",
+                "strategy": "external"
+            },
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            }
+        },
+        {
+            "name": "windows-d3d11",
+            "displayName": "Windows - Direct3D 11 (Ninja, Release)",
+            "description": "Default Windows build. VS Code's CMake Tools uses this preset for the configure, build and play buttons.",
+            "inherits": "windows-base",
+            "binaryDir": "${sourceDir}/build"
+        },
+        {
+            "name": "windows-opengl",
+            "displayName": "Windows - OpenGL (Ninja, Release)",
+            "description": "Builds the OpenGL backend on Windows to validate the Linux/Android renderer without leaving Windows.",
+            "inherits": "windows-base",
+            "binaryDir": "${sourceDir}/build-gl",
+            "cacheVariables": {
+                "INSLAND_FORCE_OPENGL": "ON"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "windows-d3d11",
+            "displayName": "InslandGame - Direct3D 11",
+            "configurePreset": "windows-d3d11",
+            "targets": [
+                "InslandGame"
+            ]
+        },
+        {
+            "name": "windows-d3d11-all",
+            "displayName": "Everything - Direct3D 11",
+            "configurePreset": "windows-d3d11"
+        },
+        {
+            "name": "windows-opengl",
+            "displayName": "InslandGame - OpenGL",
+            "configurePreset": "windows-opengl",
+            "targets": [
+                "InslandGame"
+            ]
+        },
+        {
+            "name": "windows-opengl-all",
+            "displayName": "Everything - OpenGL",
+            "configurePreset": "windows-opengl"
+        }
+    ]
 }
